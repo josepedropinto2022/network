@@ -14,6 +14,12 @@ variable "vpc_id" {
 }
 
 
+variable "region" {
+  type = string
+  default = ""
+  
+}
+
 
 variable "nameSG" {
   type = string
