@@ -7,6 +7,13 @@ variable "descsg" {
 
 
 
+variable "cdir_vpc" {
+  type = string
+  default = ""
+  
+}
+
+
 variable "pub_subnet" {
   type = string
   default = ""
