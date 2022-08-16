@@ -14,11 +14,7 @@ variable "cdir_vpc" {
 }
 
 
-variable "pub_subnet" {
-  type = string
-  default = ""
-  
-}
+
 
 
 
