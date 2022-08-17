@@ -11,7 +11,11 @@ variable "vpc_id" {
   default = ""
   
 }
-
+variable "cdir_vpc" {
+  type = string
+  default = "172.26.0.0/16"
+  
+}
 
 variable "region" {
   type = string
