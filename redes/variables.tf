@@ -103,10 +103,7 @@ variable "regiaoDC" {
   default = "wwwt2micro"
 }
 
-variable "cdir_vpc" {
-  type = string
-  #default = "172.26.0.0/16"
-}
+
 
 variable "subnet_cdir_subpublica_nat_azb" {
   type = string
