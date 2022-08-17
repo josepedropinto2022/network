@@ -13,6 +13,14 @@ variable "vpc_id" {
 }
 
 
+variable "cdir_vpc" {
+  type = string
+  default = ""
+  
+}
+
+
+
 variable "region" {
   type = string
   default = ""
