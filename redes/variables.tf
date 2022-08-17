@@ -13,7 +13,7 @@ variable "vpc_id" {
 }
 variable "cdir_vpc" {
   type = string
-  default = "172.26.0.0/16"
+  default = ""
   
 }
 
