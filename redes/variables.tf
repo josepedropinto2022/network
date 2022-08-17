@@ -6,11 +6,7 @@ variable "descsg" {
 }
 
 
-variable "vpc_id" {
-  type = string
-  default = ""
-  
-}
+
 variable "cdir_vpc" {
   type = string
   default = ""
