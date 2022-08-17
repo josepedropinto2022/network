@@ -7,11 +7,6 @@ variable "descsg" {
 
 
 
-variable "cdir_vpc" {
-  type = string
-  default = ""
-  
-}
 
 
 
