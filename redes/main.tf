@@ -156,7 +156,7 @@ resource "aws_route_table" "public" {
   route_table_id = aws_route_table.public[each.key].id
   subnet_id      = each.value.id
 }
- */
+
 
 resource "aws_nat_gateway" "aws_nat_gateway_1" {
  
@@ -170,7 +170,7 @@ resource "aws_nat_gateway" "aws_nat_gateway_1" {
 }
 
 
-
+ */
 
 
 
