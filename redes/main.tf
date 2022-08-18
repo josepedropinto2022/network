@@ -4,6 +4,8 @@
 ####################################
 
 
+data "aws_availability_zones" "available" {}
+
 
 
 
@@ -56,9 +58,22 @@ resource "aws_route_table_association" "public" {
 
 ###################
 ###########
-obter automaticamenet as az  
 
-resource "aws_subnet" "public" {
+resource "aws_subnet" "aws_subnet_public" {
+  count = "${length(data.aws_availability_zones.available.names)}"
+  vpc_id      = aws_vpc.vpc.id
+  cidr_block = "10.20.${10+count.index}.0/24"
+  availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
+  map_public_ip_on_launch = true
+  tags {
+    Name      = "public-${each.key}"
+  }
+}
+
+
+#######
+
+/* resource "aws_subnet" "public" {
   for_each    = var.pub_subnet
   vpc_id      = aws_vpc.vpc.id
   #cidr_block  = each.value["public_cidr"]
@@ -69,8 +84,26 @@ resource "aws_subnet" "public" {
     Name      = "public-${each.key}"
   }
 }
+ */
 
 
+
+
+##################################################################################################
+
+
+resource "aws_subnet" "aws_subnet_private_subnet" {
+  count = "${length(data.aws_availability_zones.available.names)}"
+  vpc_id = "${aws_vpc.myVpc.id}"
+  cidr_block = "10.20.${20+count.index}.0/24"
+  availability_zone= "${data.aws_availability_zones.available.names[count.index]}"
+  map_public_ip_on_launch = false
+  tags {
+    Name      = "private-${each.key}"
+  }
+}
+
+#####################################################################################################
 
 #https://stackoverflow.com/questions/59097391/terraform-how-to-supply-attributes-of-resources-which-where-created-using-one-r
 
@@ -102,8 +135,31 @@ resource "aws_subnet" "public" {
 ##}
 
 
+###Routing
 
-resource "aws_nat_gateway" "example" {
+resource "aws_route_table" "public" {
+  count = "${length(data.aws_availability_zones.available.names)}"
+  vpc_id   = aws_vpc.vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+
+  tags = {
+    Name = "rt_tags"
+  }
+}
+
+resource "aws_route_table_association" "public" {
+  for_each       = aws_subnet.public
+  route_table_id = aws_route_table.public[each.key].id
+  subnet_id      = each.value.id
+}
+
+nat
+
+resource "aws_nat_gateway" "aws_nat_gateway_1" {
  
   for_each      = var.pub_subnet
   
@@ -111,5 +167,93 @@ resource "aws_nat_gateway" "example" {
 
   tags = {
     Name        = "nat-${each.key}"
+  }
+}
+
+
+
+
+Routing
+
+resource "aws_route_table" "aws_route_table_private" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name        = "${var.environment}-private-route-table"
+    Environment = "${var.environment}"
+  }
+}
+
+
+resource "aws_route_table" "aws_route_table_public" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name        = "${var.environment}-public-route-table"
+    Environment = "${var.environment}"
+  }
+}
+
+routing to IGW
+resource "aws_route" "public_internet_gateway" {
+  route_table_id         = aws_route_table.public.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.aws_nat_gateway.id
+}
+
+
+roiute for nat
+resource "aws_route" "private_nat_gateway" {
+  route_table_id         = aws_route_table.private.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.nat.id
+}
+
+
+##associate route tables and subnetes
+
+#public subnetes
+
+resource "aws_route_table_association" "public" {
+  count = "${length(data.aws_availability_zones.available.names)}"
+  subnet_id      = element(aws_subnet.aws_subnet_public.*.id, count.index)
+  route_table_id = aws_route_table.aws_route_table_public.id
+}
+
+##private subnetes
+
+resource "aws_route_table_association" "private" {
+  count          = count = "${length(data.aws_availability_zones.available.names)}"
+  subnet_id      = element(aws_subnet.aws_subnet_private_subnet.*.id, count.index)
+  route_table_id = aws_route_table.paws_route_table_private.id
+}
+
+
+DEFSAULT sg TO vpc
+
+resource "aws_security_group" "default" {
+  name        = "${var.environment}-default-sg"
+  description = "Default SG to alllow traffic from the VPC"
+  vpc_id = aws_vpc.vpc.id
+  depends_on = [
+    aws_vpc.vpc
+  ]
+
+    ingress {
+    from_port = "0"
+    to_port   = "0"
+    protocol  = "-1"
+    self      = true
+  }
+
+  egress {
+    from_port = "0"
+    to_port   = "0"
+    protocol  = "-1"
+    self      = "true"
+  }
+
+  tags = {
+    Environment = "${var.environment}"
   }
 }
