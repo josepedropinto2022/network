@@ -158,14 +158,13 @@ resource "aws_route_table_association" "public" {
 }
 
 
-
 resource "aws_nat_gateway" "aws_nat_gateway_1" {
  
   for_each      = var.pub_subnet
   
   subnet_id     = aws_subnet.public[each.key].id
 
-  tags = {
+  tags  {
     Name        = "nat-${each.key}"
   }
 }
