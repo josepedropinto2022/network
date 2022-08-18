@@ -157,7 +157,7 @@ resource "aws_route_table_association" "public" {
   subnet_id      = each.value.id
 }
 
-nat
+
 
 resource "aws_nat_gateway" "aws_nat_gateway_1" {
  
@@ -173,7 +173,7 @@ resource "aws_nat_gateway" "aws_nat_gateway_1" {
 
 
 
-Routing
+
 
 resource "aws_route_table" "aws_route_table_private" {
   vpc_id = aws_vpc.vpc.id
@@ -202,7 +202,7 @@ resource "aws_route" "public_internet_gateway" {
 }
 
 
-roiute for nat
+
 resource "aws_route" "private_nat_gateway" {
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
@@ -229,7 +229,7 @@ resource "aws_route_table_association" "private" {
 }
 
 
-DEFSAULT sg TO vpc
+
 
 resource "aws_security_group" "default" {
   name        = "${var.environment}-default-sg"
