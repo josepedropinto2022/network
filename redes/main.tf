@@ -56,7 +56,7 @@ resource "aws_route_table_association" "public" {
 
 ###################
 ###########
-
+obter automaticamenet as az  
 
 resource "aws_subnet" "public" {
   for_each    = var.pub_subnet
