@@ -288,7 +288,7 @@ resource "aws_flow_log" "example" {
 }
 
 resource "aws_cloudwatch_log_group" "example" {
-  name = var.awscloudwatchloggroupnome
+  name = "var.awscloudwatchloggroupnome"
 }
 
 resource "aws_iam_role" "example" {
