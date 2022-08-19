@@ -161,7 +161,7 @@ resource "aws_nat_gateway" "aws_nat_gateway_1" {
   count = "${length(data.aws_availability_zones.available.names)}"
   
   
-    subnet_id      = "${aws_subnet.public[count.index].id}" 
+    subnet_id      = "${aws_subnet.aws_subnet_public[count.index].id}" 
 
   tags = {
     Name        = "nat-${count.index}"
