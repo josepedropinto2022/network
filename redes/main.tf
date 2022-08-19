@@ -211,7 +211,7 @@ resource "aws_route" "private_nat_gateway" {
   count = "${length(data.aws_availability_zones.available.names)}"
   route_table_id         = aws_route_table.aws_route_table_private.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.aws_nat_gateway_1[count.index]
+  nat_gateway_id         = aws_nat_gateway.aws_nat_gateway_1[count.index].id
   
 }
 
