@@ -23,7 +23,7 @@ resource "aws_vpc" "vpc" {
   }
 }
 
-resource "aws_internet_gateway" "main" {
+resource "aws_internet_gateway" "aws_internet_gateway1" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
@@ -193,7 +193,7 @@ resource "aws_route_table" "aws_route_table_public" {
 resource "aws_route" "public_internet_gateway" {
   route_table_id         = aws_route_table.public.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.aws_nat_gateway.id
+  gateway_id             = aws_internet_gateway.aws_internet_gateway1.id
 }
 
 
@@ -227,7 +227,7 @@ resource "aws_route_table_association" "public" {
 resource "aws_route_table_association" "private" {
 count = "${length(data.aws_availability_zones.available.names)}"
    subnet_id      = "${aws_subnet.aws_subnet_private_subnet[count.index].id}"  
-   route_table_id = aws_route_table.paws_route_table_private.id
+   route_table_id = aws_route_table.aws_route_table_private.id
 } 
 ###dd
 
