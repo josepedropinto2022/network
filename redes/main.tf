@@ -312,7 +312,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "example" {
-  name = var.awsiamrolepolicyawscloudwatchloggroupnome
+  name = var.awsiamrolepolicyvpcfloewlogs
   role = aws_iam_role.example.id
 
   policy = <<EOF
