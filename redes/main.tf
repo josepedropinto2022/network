@@ -64,7 +64,7 @@ resource "aws_subnet" "aws_subnet_public" {
   cidr_block = "10.20.${10+count.index}.0/24"
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
   map_public_ip_on_launch = true
-  tags {
+  tags = {
     #Name      = "public-${each.key}"
     Name      = "public"
   }
@@ -99,7 +99,7 @@ resource "aws_subnet" "aws_subnet_private_subnet" {
   availability_zone= "${data.aws_availability_zones.available.names[count.index]}"
   map_public_ip_on_launch = false
   tags =  {
-    Name      = "private-${each.key}"
+    Name      = "private-${var.environment}}"
   }
 }
 
