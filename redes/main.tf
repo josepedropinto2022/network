@@ -65,7 +65,8 @@ resource "aws_subnet" "aws_subnet_public" {
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
   map_public_ip_on_launch = true
   tags {
-    Name      = "public-${each.key}"
+    #Name      = "public-${each.key}"
+    Name      = "public"
   }
 }
 
@@ -93,7 +94,7 @@ resource "aws_subnet" "aws_subnet_public" {
 
 resource "aws_subnet" "aws_subnet_private_subnet" {
   count = "${length(data.aws_availability_zones.available.names)}"
-  vpc_id = "${aws_vpc.myVpc.id}"
+  vpc_id = aws_vpc.vpc.id
   cidr_block = "10.20.${20+count.index}.0/24"
   availability_zone= "${data.aws_availability_zones.available.names[count.index]}"
   map_public_ip_on_launch = false
@@ -176,7 +177,7 @@ resource "aws_route_table" "aws_route_table_private" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name        = "${var.environment}-private-route-table"
+    Name        = "private-route-table"
     Environment = "${var.environment}"
   }
 }

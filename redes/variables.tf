@@ -113,6 +113,14 @@ variable "subnet_cdir_subnetpriv_aza" {
 
 
 
+
+variable "environmen" {
+  type = string
+  default = "scib-cross-IGW"
+}
+
+
+
 variable "igw_name" {
   type = string
   default = "scib-cross-IGW"
