@@ -274,3 +274,63 @@ resource "aws_security_group" "default" {
     Environment = "${var.environment}"
   }
 }
+
+
+####CONFIG FLOW LOGS
+##AWS documentation  https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html
+##terra links  https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/flow_log
+
+resource "aws_flow_log" "example" {
+  iam_role_arn    = aws_iam_role.example.arn
+  log_destination = aws_cloudwatch_log_group.example.arn
+  traffic_type    = "ALL"
+  vpc_id = aws_vpc.vpc.id
+}
+
+resource "aws_cloudwatch_log_group" "example" {
+  name = var.aws_cloudwatch_log_group_nome
+}
+
+resource "aws_iam_role" "example" {
+  name = var.aws_iam_role_aws_cloudwatch_log_group_nome
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "vpc-flow-logs.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "example" {
+  name = var.aws_iam_role_policy_aws_cloudwatch_log_group_nome
+  role = aws_iam_role.example.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogGroups",
+        "logs:DescribeLogStreams"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}

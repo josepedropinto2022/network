@@ -113,6 +113,27 @@ variable "subnet_cdir_subnetpriv_aza" {
 
 
 
+variable "aws_iam_role_policy_aws_cloudwatch_log_group_nome" {
+  type = string
+  default = ""
+  description = "iam role policy name to be used to cloud watch group name in flow logs"
+}
+
+
+variable "aws_iam_role_aws_cloudwatch_log_group_nome" {
+  type = string
+  default = ""
+  description = "iam role to be used by cloud watch log group name to vpc flow logs"
+}
+
+
+
+variable "aws_cloudwatch_log_group_nome" {
+  type = string
+  default = ""
+  description = "cloud watch log group to get flow logs"
+}
+
 
 variable "environment" {
   type = string
