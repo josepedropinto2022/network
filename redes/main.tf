@@ -141,7 +141,7 @@ resource "aws_route_table" "public" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.main.id
+    gateway_id = aws_internet_gateway.aws_internet_gateway1.id
   }
 
   tags  =  {
@@ -155,19 +155,20 @@ resource "aws_route_table" "public" {
   subnet_id      = each.value.id
 }
 
-
+*/
 resource "aws_nat_gateway" "aws_nat_gateway_1" {
  
   count = "${length(data.aws_availability_zones.available.names)}"
   
-  subnet_id     = aws_subnet.public[each.key].id
+  
+    subnet_id      = "${aws_subnet.public[count.index].id}" 
 
   tags = {
-    Name        = "nat-${each.key}"
+    Name        = "nat-${count.index}"
   }
 }
 
- */
+ 
 
 
 
@@ -198,9 +199,9 @@ resource "aws_route" "public_internet_gateway" {
 
 
 resource "aws_route" "private_nat_gateway" {
-  route_table_id         = aws_route_table.private.id
+  route_table_id         = aws_route_table.aws_route_table_private.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat.id
+  nat_gateway_id         = aws_nat_gateway.aws_nat_gateway_1.id
 }
 
 
