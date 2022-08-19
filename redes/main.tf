@@ -292,7 +292,7 @@ resource "aws_cloudwatch_log_group" "example" {
 }
 
 resource "aws_iam_role" "example" {
-  name = var.awsiamroleawscloudwatchloggroupnome
+  name = "var.awsiamroleawscloudwatchloggroupnome"
 
   assume_role_policy = <<EOF
 {
