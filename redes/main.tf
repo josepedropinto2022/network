@@ -288,11 +288,11 @@ resource "aws_flow_log" "example" {
 }
 
 resource "aws_cloudwatch_log_group" "example" {
-  name = "var.awscloudwatchloggroupnome"
+  name = "var.cdwtcgrname"
 }
 
 resource "aws_iam_role" "example" {
-  name = "var.awsiamroleawscloudwatchloggroupnome"
+  name = "var.ipnameflg"
 
   assume_role_policy = <<EOF
 {
@@ -312,7 +312,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "example" {
-  name = var.awsiamrolepolicyvpcfloewlogs
+  name = var.iamrflogs
   role = aws_iam_role.example.id
 
   policy = <<EOF
