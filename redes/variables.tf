@@ -116,7 +116,7 @@ variable "subnet_cdir_subnetpriv_aza" {
 
 
 
-variable "awsiamrolepolicyawscloudwatchloggroupnome" {
+variable "awsiamrolepolicyvpcfloewlogs" {
   type = string
   default = ""
   description = "iam role policy name to be used to cloud watch group name in flow logs"
