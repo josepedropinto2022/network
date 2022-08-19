@@ -219,11 +219,21 @@ resource "aws_route_table_association" "public" {
 
 ##private subnetes
 
-resource "aws_route_table_association" "private" {
+/* resource "aws_route_table_association" "private" {
   count = "${length(data.aws_availability_zones.available.names)}"
   subnet_id      = element(aws_subnet.aws_subnet_private_subnet.*.id, count.index)
   route_table_id = aws_route_table.paws_route_table_private.id
 }
+ */
+
+####
+resource "aws_route_table_association" "private" {
+count = "${length(data.aws_availability_zones.available.names)}"
+   subnet_id      = "${aws_subnet.aws_subnet_private_subnet[count.index].id}"  
+   route_table_id = aws_route_table.paws_route_table_private.id
+} 
+###
+
 
 
 
