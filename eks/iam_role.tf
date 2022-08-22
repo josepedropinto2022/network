@@ -1,6 +1,6 @@
 # Create IAM Role
 resource "aws_iam_role" "eks_master_role" {
-  name = "${local.name}-eks-master-role"
+ # name = "${local.name}-eks-master-role"
 
   assume_role_policy = <<POLICY
 {
@@ -34,7 +34,7 @@ resource "aws_iam_role_policy_attachment" "eks-AmazonEKSVPCResourceController" {
 
 # IAM Role for EKS Node Group 
 resource "aws_iam_role" "eks_nodegroup_role" {
-  name = "${local.name}-eks-nodegroup-role"
+ # name = "${local.name}-eks-nodegroup-role"
 
   assume_role_policy = jsonencode({
     Statement = [{
