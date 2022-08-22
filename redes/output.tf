@@ -21,7 +21,7 @@
 } 
 
 
-/*  output aws_db_subnet_group_public {
- value = "${aws_db_subnet_group.public.id}"
+ output aws_db_subnet_group_public {
+ value = "${aws_subnet.aws_subnet_public[*].id}"
 
-}  */
+}  
