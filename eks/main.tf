@@ -1,5 +1,5 @@
 ###
 
 resource "aws_subnet" "aws_subnet_public" {
-  source = "./roles/"
+  source = "./eks/eks/roles/"
   }
