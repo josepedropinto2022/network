@@ -88,7 +88,7 @@ resource "aws_cloudwatch_log_group" "this" {
 ################################################################################
 
 module "kms" {
-  source  = "terraform-aws-modules/kms/aws"
+  source  = ",/kms"
   version = "1.0.2" # Note - be mindful of Terraform/provider version compatibility between modules
 
   create = local.create && var.create_kms_key
