@@ -11,7 +11,7 @@
  # description = "id de vpc cross"
   
 #} 
-
+##
 
 
  output "vpc_cross_id" {
