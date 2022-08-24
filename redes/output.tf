@@ -25,3 +25,8 @@
  value = "${aws_subnet.aws_subnet_public[*].id}"
 
 }  
+
+output aws_db_subnet_group_private {
+ value = "${aws_subnet.aws_subnet_private_subnet[*].id}"
+
+}  
