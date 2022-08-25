@@ -2,6 +2,13 @@
 # Key
 ################################################################################
 
+
+output "aws_kms_key_toeks" {
+  description = "The Amazon Resource Name (ARN) of the key"
+  value       = aws_kms_key.toeks.arn
+}
+
+
 output "key_arn" {
   description = "The Amazon Resource Name (ARN) of the key"
   value       = try(aws_kms_key.this[0].arn, aws_kms_external_key.this[0].arn, null)

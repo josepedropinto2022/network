@@ -1,9 +1,27 @@
 data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
 
+#################################################################################
+###key to eks cluster
+
+resource "aws_kms_key" "toeks" {
+  
+  description                        = var.description
+  
+  multi_region                       = var.multi_region
+  
+  tags = var.tags
+}
+
 ################################################################################
 # Key
 ################################################################################
+
+
+
+
+
+
 
 resource "aws_kms_key" "this" {
   count = var.create && !var.create_external ? 1 : 0
