@@ -13,16 +13,16 @@ variable "create" {
 variable "tagstoeks" {
   type = map(object({
     name        = string
-    key = string
+    valor = string
   }))
   default = {
     "tag1" = {
       name        = "val1"
-      key = "val2"
+      valor = "val2"
     }
     "tag2" = {
       name        = "172.16.3.0/24"
-      key = "eu-west-3b"
+      valor = "eu-west-3b"
     }
   }
 }
