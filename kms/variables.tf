@@ -10,7 +10,10 @@ variable "create" {
   default     = true
 }
 
-variable "tagstoeks" {
+
+
+#################prob do map var
+/* variable "tagstoeks" {
   type = map(object({
     name        = string
     valor = string
@@ -25,8 +28,16 @@ variable "tagstoeks" {
       valor = "eu-west-3b"
     }
   }
-}
+} */
 
+
+variable "tagstoeks" { 
+  type = map
+  default = { 
+    name = "red" 
+    valor = "#FF0000"
+  }
+}
 
 
 
