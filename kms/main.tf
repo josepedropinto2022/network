@@ -10,7 +10,7 @@ resource "aws_kms_key" "toeks" {
   
   multi_region                       = var.multi_region
   
-  tags = var.tags
+  tags = var.tagstoeks
 }
 
 ################################################################################

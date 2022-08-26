@@ -4,7 +4,7 @@ variable "create" {
   default     = true
 }
 
-variable "tags" {
+variable "tagstoeks" {
   type = map(object({
     name        = string
     key = string
