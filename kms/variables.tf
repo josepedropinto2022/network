@@ -92,9 +92,9 @@ variable "multi_region" {
 
 
 variable "description {
-  description = "Indicates whether the KMS key is a multi-Region (`true`) or regional (`false`) key. Defaults to `false`"
+  description = "Indicates whether the KMS key is a multi-Region  or regional  key. Defaults to"
   type        = string
-  default     = "KMS"
+  default     = null
 }
 
 variable "policy" {
