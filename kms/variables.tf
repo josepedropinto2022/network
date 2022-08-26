@@ -5,9 +5,20 @@ variable "create" {
 }
 
 variable "tags" {
-  description = "A map of tags to add to all resources"
-  type        = map(string)
-  default     = {}
+  type = map(object({
+    name        = string
+    key = string
+  }))
+  default = {
+    "tag1" = {
+      name        = "val1"
+      key = "val2"
+    }
+    "tag2" = {
+      name        = "172.16.3.0/24"
+      key = "eu-west-3b"
+    }
+  }
 }
 
 
