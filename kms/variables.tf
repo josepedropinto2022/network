@@ -90,6 +90,13 @@ variable "multi_region" {
   default     = false
 }
 
+
+variable "description {
+  description = "Indicates whether the KMS key is a multi-Region (`true`) or regional (`false`) key. Defaults to `false`"
+  type        = string
+  default     = "KMS"
+}
+
 variable "policy" {
   description = "A valid policy JSON document. Although this is a key policy, not an IAM policy, an `aws_iam_policy_document`, in the form that designates a principal, can be used"
   type        = string
